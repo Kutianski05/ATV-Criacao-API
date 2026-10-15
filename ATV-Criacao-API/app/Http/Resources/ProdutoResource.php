@@ -14,6 +14,16 @@ class ProdutoResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'nome'=>$this->nome,
+            'descricao'=>$this->descricao,
+            'preco'=> (float) $this->preco,
+            'preco_formatado' => 'R$ ' . number_format((float) $this->preco, 2, ',', '.'),
+            'quantidade'=> $this->quantidade,
+            'em_estoque' => $this->quantidade > 0,
+            'criado_em' => $this->created_at?->format('d/m/Y H:i'),
+            'atualizado_em' => $this->updated_at?->format('d/m/Y H:i'),
+        ];
     }
 }
